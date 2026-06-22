@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="light">
+<title>Ford x Microsoft 365 Copilot — Enablement Sessions</title>
+<style>
+  :root {
+    --ford-blue: #003478;
+    --ford-navy: #081534;
+    --ford-mid: #133A7C;
+    --ford-accent: #2A6BAC;
+    --ford-light: #47A8E5;
+    --ford-gray: #C6C6C6;
+    --bg: #eef1f6;
+    --surface: #ffffff;
+    --surface-alt: #f6f8fb;
+    --text: #16202e;
+    --muted-text: #586272;
+    --border: #dde3ec;
+    --brand-text: #003478;
+    --shadow: 0 2px 10px rgba(8, 21, 52, 0.08);
+    --radius: 12px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0c1422;
+      --surface: #15202f;
+      --surface-alt: #1b2838;
+      --text: #eef2f8;
+      --muted-text: #a8b3c2;
+      --border: #25344a;
+      --brand-text: #7cc0f5;
+      --shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+    }
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.55;
+  }
+
+  /* ---------- Header ---------- */
+  header {
+    background: linear-gradient(135deg, var(--ford-navy) 0%, var(--ford-blue) 55%, var(--ford-mid) 100%);
+    color: #fff;
+    padding: 28px 24px 22px;
+  }
+  .header-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  /* Microsoft logo (four-color squares + wordmark, built in CSS) */
+  .ms-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+    flex-shrink: 0;
+  }
+  .ms-squares {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 3px;
+    width: 46px;
+    height: 46px;
+  }
+  .ms-squares span { display: block; border-radius: 1px; }
+  .ms-squares .s1 { background: #F25022; }
+  .ms-squares .s2 { background: #7FBA00; }
+  .ms-squares .s3 { background: #00A4EF; }
+  .ms-squares .s4 { background: #FFB900; }
+  .header-text h1 {
+    margin: 0 0 4px;
+    font-size: 25px;
+    font-weight: 600;
+  }
+  .header-text p {
+    margin: 0;
+    font-size: 15px;
+    color: #cfe0f4;
+  }
+  .header-meta {
+    margin-left: auto;
+    text-align: right;
+    font-size: 13px;
+    color: #cfe0f4;
+  }
+  .header-meta strong { color: #fff; }
+
+  /* ---------- Tabs ---------- */
+  .tabbar {
+    background: var(--surface);
+    border-bottom: 3px solid var(--ford-blue);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    box-shadow: var(--shadow);
+  }
+  .tabbar-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .tab-btn {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: var(--muted-text);
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    padding: 15px 22px;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    margin-bottom: -3px;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+  }
+  .tab-btn:hover { color: var(--ford-blue); background: var(--surface-alt); }
+  .tab-btn.active { color: var(--ford-blue); border-bottom-color: var(--ford-light); }
+
+  /* ---------- Layout ---------- */
+  main {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 30px 24px 70px;
+  }
+  .panel { display: none; animation: fade 0.25s ease; }
+  .panel.active { display: block; }
+  @keyframes fade { from { opacity: 0; transform: translateY(6px);} to {opacity:1; transform:none;} }
+
+  h2.section-title {
+    font-size: 23px;
+    color: var(--brand-text);
+    margin: 4px 0 6px;
+  }
+  .lede { color: var(--muted-text); font-size: 16px; margin: 0 0 24px; max-width: 760px; }
+
+  h3.group {
+    font-size: 17px;
+    margin: 30px 0 4px;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .step-num {
+    background: var(--ford-blue);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    width: 26px; height: 26px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .scene { color: var(--muted-text); font-size: 14px; margin: 2px 0 14px 36px; font-style: italic; }
+
+  /* ---------- Prompt card ---------- */
+  .prompt-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--ford-light);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    margin: 0 0 16px;
+    box-shadow: var(--shadow);
+  }
+  .prompt-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .prompt-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: var(--brand-text);
+  }
+  .prompt-text {
+    margin: 0;
+    font-family: inherit;
+    font-size: 15px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    color: var(--text);
+    background: var(--surface-alt);
+    padding: 14px 16px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+  }
+  .ph { color: var(--ford-accent); font-weight: 700; }
+  .copy-btn {
+    appearance: none;
+    border: 1px solid var(--ford-blue);
+    background: var(--ford-blue);
+    color: #fff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 7px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.15s, transform 0.05s;
+  }
+  .copy-btn:hover { background: var(--ford-mid); }
+  .copy-btn:active { transform: scale(0.97); }
+  .copy-btn.copied { background: #1c7c3c; border-color: #1c7c3c; }
+
+  .tip {
+    background: var(--surface-alt);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--ford-accent);
+    border-radius: var(--radius);
+    padding: 14px 18px;
+    margin: 18px 0;
+    font-size: 14.5px;
+  }
+  .tip strong { color: var(--brand-text); }
+  .tip code {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--ford-light);
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 13.5px;
+    font-weight: 600;
+  }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 16px;
+    margin: 18px 0;
+  }
+  .info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--ford-light);
+    border-radius: var(--radius);
+    padding: 16px 18px;
+    box-shadow: var(--shadow);
+  }
+  .info-card h4 { margin: 0 0 6px; color: var(--brand-text); font-size: 15px; }
+  .info-card p { margin: 0; font-size: 14px; color: var(--muted-text); }
+
+  ol.steps { padding-left: 0; counter-reset: s; list-style: none; margin: 16px 0; }
+  ol.steps li {
+    position: relative;
+    padding: 4px 0 16px 44px;
+    border-left: 2px solid var(--border);
+    margin-left: 13px;
+  }
+  ol.steps li:last-child { border-left-color: transparent; }
+  ol.steps li::before {
+    counter-increment: s;
+    content: counter(s);
+    position: absolute;
+    left: -14px; top: 0;
+    width: 28px; height: 28px;
+    background: var(--ford-blue);
+    color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 700;
+  }
+  ol.steps li strong { color: var(--text); }
+
+  a.doc-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--ford-blue);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 12px 20px;
+    border-radius: 8px;
+    margin: 6px 0;
+    transition: background 0.15s;
+  }
+  a.doc-link:hover { background: var(--ford-mid); }
+
+  .agenda-table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 14.5px; }
+  .agenda-table th, .agenda-table td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); }
+  .agenda-table th { background: var(--ford-blue); color: #fff; font-weight: 600; }
+  .agenda-table tr:nth-child(even) td { background: var(--surface-alt); }
+
+  .pill {
+    display: inline-block;
+    background: var(--ford-blue);
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    margin-bottom: 8px;
+  }
+
+  footer {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 22px 24px 50px;
+    color: var(--muted-text);
+    font-size: 13px;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 600px) {
+    .header-meta { margin-left: 0; text-align: left; width: 100%; }
+    .tab-btn { padding: 13px 14px; font-size: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <span class="ms-logo" aria-label="Microsoft">
+      <span class="ms-squares" aria-hidden="true"><span class="s1"></span><span class="s2"></span><span class="s3"></span><span class="s4"></span></span>
+    </span>
+    <div class="header-text">
+      <h1>Microsoft 365 Copilot — Onsite Enablement</h1>
+      <p>Working sessions with the Ford leadership Chiefs of Staff &amp; Executive Admins</p>
+    </div>
+    <div class="header-meta">
+      <div><strong>Dearborn, Michigan</strong></div>
+      <div>June 24–25, 2026</div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabbar" aria-label="Sections">
+  <div class="tabbar-inner">
+    <button class="tab-btn active" data-tab="intro">Introduction</button>
+    <button class="tab-btn" data-tab="ea">EA Prompts</button>
+    <button class="tab-btn" data-tab="cos">COS Prompts</button>
+    <button class="tab-btn" data-tab="agents">Agents 101</button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ================= INTRODUCTION ================= -->
+  <section class="panel active" id="intro">
+    <span class="pill">Welcome</span>
+    <h2 class="section-title">Getting more done with Microsoft 365 Copilot</h2>
+    <p class="lede">Welcome! This page is your take-home companion for today's session. Everything we demo live is here for you to copy, try, and reuse at your own desk. No notes to take — just click <strong>Copy</strong> on any prompt and paste it into Microsoft 365 Copilot.</p>
+
+    <h3 class="group"><span class="step-num">1</span> What is Microsoft 365 Copilot?</h3>
+    <p class="scene" style="margin-left:0; font-style:normal;">Microsoft 365 Copilot is your AI assistant woven into the apps you already use — Outlook, Teams, Word, Excel, PowerPoint, and Copilot Chat. It works over <em>your</em> emails, meetings, files, and calendar (securely, inside your Microsoft 365 tenant) so the help you get is grounded in your real work, not generic answers.</p>
+
+    <div class="card-grid">
+      <div class="info-card"><h4>Day in the Life</h4><p>High-impact prompts that mirror what your role actually does each day — triage, prep, drafting, and follow-up.</p></div>
+      <div class="info-card"><h4>Agents</h4><p>Reusable, purpose-built assistants you create yourself in Agent Builder — no code required.</p></div>
+      <div class="info-card"><h4>Workshop</h4><p>You'll build your own agent live, using a starter prompt you can adapt to your team.</p></div>
+      <div class="info-card"><h4>Take it home</h4><p>This site is yours. Bookmark it, share it with your peers, and keep experimenting.</p></div>
+    </div>
+
+    <h3 class="group"><span class="step-num">2</span> Today's agenda (60 minutes)</h3>
+    <table class="agenda-table">
+      <thead><tr><th>Time</th><th>Segment</th><th>What we'll cover</th></tr></thead>
+      <tbody>
+        <tr><td>5 min</td><td>Introduction</td><td>Why Copilot, and how today works</td></tr>
+        <tr><td>15 min</td><td>Day in the Life</td><td>Live demo of high-impact prompts for your role</td></tr>
+        <tr><td>20 min</td><td>Agents Introduction</td><td>Demo an agent built in Agent Builder, and how it was made</td></tr>
+        <tr><td>10 min</td><td>Agents Workshop</td><td>Build the agent together in Agent Builder</td></tr>
+        <tr><td>10 min</td><td>Q&amp;A</td><td>Your questions</td></tr>
+      </tbody>
+    </table>
+
+    <h3 class="group"><span class="step-num">3</span> How to get the most from any prompt</h3>
+    <div class="tip"><strong>Use the / key to link your content.</strong> Anywhere a prompt shows something in <code>[brackets]</code>, that's where you insert a live link: type <code>/</code> in Copilot and pick the executive's mailbox, a file, a meeting, or a person. Replacing the placeholder with a real link is what lets Copilot pull the right inbox, calendar, or document — and keeps it clear which mailbox the answer came from.</div>
+    <div class="tip"><strong>Be specific about the output.</strong> Tell Copilot the format you want ("a table", "under 150 words", "three bullet points"), the tone ("warm", "executive-ready"), and the audience. The more direction you give, the better the result.</div>
+    <div class="tip"><strong>It's a conversation, not a vending machine.</strong> If the first draft isn't quite right, just say "make it shorter," "more formal," or "add the budget numbers." Copilot remembers the context of your chat.</div>
+    <div class="tip"><strong>Keep it professional and confidential.</strong> Treat Copilot like a trusted assistant. Use real context, but follow your normal judgment on sensitive information.</div>
+
+    <p style="margin-top:24px;">When you're ready, head to the <strong>EA Prompts</strong> or <strong>COS Prompts</strong> tab to follow along with the demo.</p>
+  </section>
+
+  <!-- ================= EA PROMPTS ================= -->
+  <section class="panel" id="ea">
+    <span class="pill">Executive Admins</span>
+    <h2 class="section-title">A day supporting a Ford leader</h2>
+    <p class="lede">These prompts follow one morning-to-evening arc for an executive admin — starting the day, getting your leader ready, drafting on their behalf, coordinating logistics, and closing the loop. Run them in order to see how Copilot supports the whole flow, or copy any one on its own.</p>
+
+    <div class="tip"><strong>Before you run these:</strong> anything in <code>[brackets]</code> is where you drop in a live link — in Copilot, type <code>/</code> and choose the executive's mailbox, a file, or a meeting. Because each prompt points at one mailbox, the results stay clear about whose inbox or calendar they came from. For the inbox and calendar prompts you'll need delegate or shared access to the executive's mailbox.</div>
+
+    <h3 class="group"><span class="step-num">1</span> Start the day: triage the inbox</h3>
+    <p class="scene">It's 8 AM. Before your leader logs on, you want to know what landed over the weekend and what needs attention.</p>
+    <div class="prompt-card">
+      <div class="prompt-head"><span class="prompt-label">Outlook / Copilot Chat</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Review the inbox for [the executive] and summarize the emails that arrived since Friday, focusing on anything high importance or time-sensitive. Sort them into three groups: needs the executive's attention, needs my follow-up, and FYI only. For each email, give me a one-sentence summary, who it's from, and what it's asking for.</pre>
+    </div>
+
+    <h3 class="group"><span class="step-num">2</span> Look ahead: this week's calendar</h3>
+    <p class="scene">Now you scan the week so there are no surprises — gaps, conflicts, or meetings missing an agenda.</p>
+    <div class="prompt-card">
+      <div class="prompt-head"><span class="prompt-label">Copilot Chat</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Review the calendar for [the executive] for this week and summarize each meeting, including its purpose, the key attendees, and whether it already has an agenda. Flag any double-bookings, any meetings without a clear purpose, and any days that are fully back-to-back with no break.</pre>
+    </div>
+
+    <h3 class="group"><span class="step-num">3</span> Get them ready: build a meeting brief</h3>
+    <p class="scene">There's an important meeting today. You put together a one-page brief so your leader walks in prepared.</p>
+    <div class="prompt-card">
+      <div class="prompt-head"><span class="prompt-label">Copilot Chat / Word</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Create a briefing document for [the executive]'s meeting today with the product launch team. Include the attendees and their roles, a short summary of the most recent email exchanges between the executive and this group, the open action items from their last meeting with this group, and three smart questions the executive could ask.</pre>
+    </div>
+
+    <h3 class="group"><span class="step-num">4</span> Draft on their behalf</h3>
+    <p class="scene">Your leader asks you to send a note to the leadership team. You draft it in their voice.</p>
+    <div class="prompt-card">
+      <div class="prompt-head"><span class="prompt-label">Outlook / Copilot Chat</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Draft an email on behalf of [the executive] to their leadership team. It should thank everyone for their work closing out the quarter, ask each person to send their top three priorities for next quarter by end of day Friday, and let them know these will be reviewed together at the next staff meeting. Keep it warm, appreciative, and under 150 words.</pre>
+    </div>
+
+    <h3 class="group"><span class="step-num">5</span> Coordinate the travel</h3>
+    <p class="scene">There's an upcoming site visit. You pull the details together into a clean itinerary and catch anything still unconfirmed.</p>
+    <div class="prompt-card">
+      <div class="prompt-head"><span class="prompt-label">Copilot Chat</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Search the inbox for [the executive] for the most recent email about their next business trip, and pull out the key details: dates, flight times, hotel, and any onsite agenda. Then turn it into a clean, organized itinerary I can share with the executive, and list anything that still looks missing or unconfirmed.</pre>
+    </div>
+
+    <h3 class="group"><span class="step-num">6</span> Close the loop: action items</h3>
+    <p class="scene">Yesterday's staff meeting produced commitments. You make sure nothing slips.</p>
+    <div class="prompt-card">
+      <div class="prompt-head"><span class="prompt-label">Copilot Chat / Teams</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">From [link the staff meeting notes], create a table of every action item with its owner and due date. Then draft a short, friendly follow-up message I can send to each owner reminding them what they committed to and when it's due.</pre>
+    </div>
+
+    <h3 class="group"><span class="step-num">7</span> Wrap up: tee up tomorrow</h3>
+    <p class="scene">End of day. You set yourself up so tomorrow starts on the front foot.</p>
+    <div class="prompt-card">
+      <div class="prompt-head"><span class="prompt-label">Copilot Chat</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Build me a prioritized to-do list for tomorrow using my own open emails, [the executive]'s calendar for tomorrow, and any action items still outstanding from this week. Put the most time-sensitive items at the top, and flag anything I'm waiting on from someone else.</pre>
+    </div>
+
+    <div class="tip"><strong>Your turn:</strong> swap in your own details — a real meeting name, a real project — and watch how much more specific the results become. The <strong>Agents 101</strong> tab shows how to turn these into a one-click assistant.</div>
+  </section>
+
+  <!-- ================= COS PROMPTS ================= -->
+  <section class="panel" id="cos">
+    <span class="pill">Chiefs of Staff</span>
+    <h2 class="section-title">Running the leadership operating rhythm</h2>
+    <p class="lede">These prompts walk through a chief of staff's week — synthesizing what matters, running the leadership meeting, turning information into decisions, and communicating outward. Run them in sequence to see the full operating rhythm, or grab any single prompt.</p>
+
+    <div class="tip"><strong>Before you run these:</strong> anything in <code>[brackets]</code> is where you drop in a live link — type <code>/</code> in Copilot and pick a file, a meeting, or a person. A couple of prompts mention <code>[the executive]</code> — that's simply who the summary or message is for. The rest work over your own email, Teams, and files.</div>
+
+    <h3 class="group"><span class="step-num">1</span> Monday: synthesize the week</h3>
+    <p class="scene">You start the week by cutting through the noise — what moved, what's at risk, what needs a decision.</p>
+    <div class="prompt-card">
+      <div class="prompt-head"><span class="prompt-label">Copilot Chat</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Summarize the most important updates, decisions, and risks from my email and Teams messages over the past week, organized around our top strategic priorities. For anything flagged as a risk or a blocker, note who owns it and what decision or help is needed.</pre>
+    </div>
+
+    <h3 class="group"><span class="step-num">2</span> Prep the leadership staff meeting</h3>
+    <p class="scene">The weekly leadership meeting is the heartbeat of the team. You build a tight, decision-focused agenda.</p>
+    <div class="prompt-card">
+      <div class="prompt-head"><span class="prompt-label">Copilot Chat</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Help me build the agenda for this week's leadership team staff meeting. Start from the open action items in [link last week's meeting notes], add the top two or three decisions we need to make this week, and propose time allocations so everything fits in 60 minutes. Format it as a clean agenda I can paste straight into the meeting invite.</pre>
+    </div>
+
+    <h3 class="group"><span class="step-num">3</span> Synthesize the business review</h3>
+    <p class="scene">A stack of QBR material just landed. Your leader needs the signal, not the noise — on one page.</p>
+    <div class="prompt-card">
+      <div class="prompt-head"><span class="prompt-label">Copilot Chat / Word</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Review the quarterly business review materials in [link the QBR file] and write a one-page executive summary for [the executive]. Organize it into what's on track, what's at risk, and the three things that need leadership attention this quarter. Keep it tight and decision-oriented, and call out any numbers that moved significantly versus last quarter.</pre>
+    </div>
+
+    <h3 class="group"><span class="step-num">4</span> Read the status data</h3>
+    <p class="scene">You track a portfolio of initiatives. You want the health picture and anything that just slipped.</p>
+    <div class="prompt-card">
+      <div class="prompt-head"><span class="prompt-label">Excel / Copilot Chat</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Analyze the initiative status data in [link the spreadsheet] and tell me how many initiatives are green, yellow, and red, broken down by department. Highlight any initiative that slipped from green or yellow to red since last month, and give me a two-sentence summary I can share with leadership.</pre>
+    </div>
+
+    <h3 class="group"><span class="step-num">5</span> Draft the executive message</h3>
+    <p class="scene">Priorities for the half are set. Your leader needs to communicate them clearly and credibly.</p>
+    <div class="prompt-card">
+      <div class="prompt-head"><span class="prompt-label">Copilot Chat / Outlook</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Draft a message from [the executive] to the broader organization announcing our operating priorities for the second half of the year. It should connect the priorities to our strategy and sound confident and motivating without being corporate, at around 300 words. Give me one version for email and a shorter version I can adapt for a Teams post.</pre>
+    </div>
+
+    <h3 class="group"><span class="step-num">6</span> Build a decision brief</h3>
+    <p class="scene">A decision is coming up. You frame it cleanly so leadership can decide fast and well.</p>
+    <div class="prompt-card">
+      <div class="prompt-head"><span class="prompt-label">Copilot Chat / Word</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Create a one-page decision brief for the proposal to consolidate our two project-reporting tools into one. Include the background and why this is coming up now, the options we're considering, the key pros and cons of each, the cost and change-management implications, and a clear recommendation with the reasoning behind it.</pre>
+    </div>
+
+    <h3 class="group"><span class="step-num">7</span> Recap and follow through</h3>
+    <p class="scene">The meeting's over. You send a crisp recap so decisions and owners are unambiguous.</p>
+    <div class="prompt-card">
+      <div class="prompt-head"><span class="prompt-label">Copilot Chat / Teams</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Using the transcript from [link today's leadership team meeting], write a concise recap I can send to the team. Lead with the decisions that were made, then list the action items organized by owner with due dates, and close with anything we explicitly parked for a future discussion.</pre>
+    </div>
+
+    <div class="tip"><strong>Your turn:</strong> point these at your real priorities, your real QBR, your real meeting. Then see the <strong>Agents 101</strong> tab to package this whole rhythm into a reusable Chief of Staff agent.</div>
+  </section>
+
+  <!-- ================= AGENTS 101 ================= -->
+  <section class="panel" id="agents">
+    <span class="pill">Agents 101</span>
+    <h2 class="section-title">Build your own Copilot agent — no code required</h2>
+    <p class="lede">An <strong>agent</strong> is a custom version of Copilot you set up once and reuse forever. You give it a name, a job description, and instructions for how it should behave — and optionally point it at trusted files or sites for knowledge. Agent Builder lets you create one just by describing it in plain language.</p>
+
+    <h3 class="group"><span class="step-num">1</span> Why build an agent?</h3>
+    <div class="card-grid">
+      <div class="info-card"><h4>Consistency</h4><p>Your best prompt, captured once. Everyone on the team gets the same high-quality help.</p></div>
+      <div class="info-card"><h4>Speed</h4><p>No re-typing long instructions. Open the agent and go.</p></div>
+      <div class="info-card"><h4>Grounded</h4><p>Point it at the right SharePoint sites or files so answers use your team's source of truth.</p></div>
+      <div class="info-card"><h4>Shareable</h4><p>Build it once, then share it with your peers across the leadership office.</p></div>
+    </div>
+
+    <h3 class="group"><span class="step-num">2</span> How to build one in Agent Builder</h3>
+    <ol class="steps">
+      <li><strong>Open Agent Builder.</strong> In Microsoft 365 Copilot, choose <em>Create agent</em> (New agent) to launch the builder.</li>
+      <li><strong>Describe it in plain language.</strong> Paste a description like the starter prompts below. Copilot fills in the name, description, and instructions for you.</li>
+      <li><strong>Refine conversationally.</strong> Tweak the tone, add a rule, change the name — just keep typing what you want.</li>
+      <li><strong>Add knowledge (optional).</strong> Point it at SharePoint sites, files, or other approved sources so it answers from your team's content.</li>
+      <li><strong>Add starter prompts.</strong> Give users one-click example prompts so they know what to ask.</li>
+      <li><strong>Test it.</strong> Try it in the preview pane on the right and adjust until it feels right.</li>
+      <li><strong>Create &amp; share.</strong> Save the agent and share it with the colleagues who'd benefit.</li>
+    </ol>
+
+    <h3 class="group"><span class="step-num">3</span> Official Microsoft documentation</h3>
+    <p style="margin:0 0 6px;">Step-by-step guidance for building agents in Agent Builder:</p>
+    <a class="doc-link" href="https://learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/agent-builder-build-agents" target="_blank" rel="noopener noreferrer">📘 Build agents with Agent Builder — Microsoft Learn</a>
+    <p style="font-size:13px; color:var(--muted-text); margin:8px 0 0;">learn.microsoft.com/en-us/microsoft-365/copilot/extensibility/agent-builder-build-agents</p>
+
+    <h3 class="group"><span class="step-num">4</span> The starter prompts we used to build today's agents</h3>
+    <p class="scene" style="margin-left:0;">Paste either one into Agent Builder's "describe your agent" box to recreate the agent from the demo, then make it your own.</p>
+
+    <div class="prompt-card">
+      <div class="prompt-head"><span class="prompt-label">Agent for Executive Admins</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Create an agent called Executive Office Assistant that helps executive administrators supporting the Ford leadership team. The agent should help me draft polished, professional emails and calendar invitations in a warm executive tone, create meeting briefing documents that pull together attendees and their roles, recent context, and open action items, turn meeting notes into clear action-item trackers with owners and due dates, and build prioritized daily and weekly task lists. It should always be concise and protect the executive's time, maintain strict confidentiality, use a discreet and professional tone, and ask a clarifying question whenever a request is ambiguous instead of guessing. When I ask for a draft, give me a ready-to-send version plus one or two alternatives for tone.</pre>
+    </div>
+
+    <div class="prompt-card">
+      <div class="prompt-head"><span class="prompt-label">Agent for Chiefs of Staff</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Create an agent called Chief of Staff Companion that supports chiefs of staff working with the Ford leadership team. It should help me synthesize updates from email, meetings, and documents into crisp executive summaries, build leadership meeting agendas complete with action items and time allocations, create one-page decision briefs that lay out the background, the options, the trade-offs, and a clear recommendation, draft executive communications in a confident and motivating voice, and track the status of our strategic initiatives and flag risks early. It should think strategically and stay concise, always organize output with clear headings, distinguish facts from recommendations, and proactively surface the decisions and risks that need leadership attention. Use a crisp, executive-ready tone.</pre>
+    </div>
+
+    <div class="tip"><strong>Pro tip for the workshop:</strong> after the agent is created, add a few <strong>starter prompts</strong> (use the Day-in-the-Life prompts from the EA or COS tabs) and connect a <strong>knowledge source</strong> — like your leadership team's SharePoint site — so the agent answers from your real documents.</div>
+  </section>
+
+</main>
+
+<footer>
+  Prepared for the Ford Motor Company onsite enablement sessions, Dearborn MI · June 24–25, 2026. The prompts on this page are starting points — adapt them with your own context. Ford brand colors used for session branding; this is a Microsoft 365 Copilot enablement resource.
+</footer>
+
+<script>
+  (function () {
+    // ---- Tab switching ----
+    var tabs = document.querySelectorAll('.tab-btn');
+    var panels = document.querySelectorAll('.panel');
+    tabs.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        var target = tab.getAttribute('data-tab');
+        tabs.forEach(function (t) { t.classList.remove('active'); });
+        panels.forEach(function (p) { p.classList.remove('active'); });
+        tab.classList.add('active');
+        var panel = document.getElementById(target);
+        if (panel) { panel.classList.add('active'); }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    // ---- Copy buttons ----
+    function flash(btn) {
+      var original = btn.textContent;
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(function () {
+        btn.textContent = original;
+        btn.classList.remove('copied');
+      }, 1600);
+    }
+
+    function legacyCopy(text, btn) {
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.setAttribute('readonly', '');
+      ta.style.position = 'absolute';
+      ta.style.left = '-9999px';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); flash(btn); } catch (e) { /* no-op */ }
+      document.body.removeChild(ta);
+    }
+
+    var buttons = document.querySelectorAll('.copy-btn');
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var card = btn.closest('.prompt-card');
+        if (!card) { return; }
+        var textEl = card.querySelector('.prompt-text');
+        if (!textEl) { return; }
+        var text = textEl.textContent.trim();
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(text).then(function () {
+            flash(btn);
+          }, function () {
+            legacyCopy(text, btn);
+          });
+        } else {
+          legacyCopy(text, btn);
+        }
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
