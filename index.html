@@ -61,11 +61,10 @@
     gap: 20px;
     flex-wrap: wrap;
   }
-  /* Microsoft logo (four-color squares + wordmark, built in CSS) */
+  /* Microsoft logo (four-color squares) */
   .ms-logo {
     display: inline-flex;
     align-items: center;
-    gap: 11px;
     flex-shrink: 0;
   }
   .ms-squares {
@@ -146,7 +145,7 @@
     color: var(--brand-text);
     margin: 4px 0 6px;
   }
-  .lede { color: var(--muted-text); font-size: 16px; margin: 0 0 24px; max-width: 760px; }
+  .lede { color: var(--muted-text); font-size: 16px; margin: 0 0 24px; max-width: 780px; }
 
   h3.group {
     font-size: 17px;
@@ -180,6 +179,7 @@
     margin: 0 0 16px;
     box-shadow: var(--shadow);
   }
+  .prompt-card.exec { border-left-color: #c9821a; }
   .prompt-head {
     display: flex;
     justify-content: space-between;
@@ -195,6 +195,13 @@
     letter-spacing: 0.6px;
     color: var(--brand-text);
   }
+  .prompt-label .exec-tag {
+    color: #b06f10;
+    background: #fbe7c9;
+    padding: 1px 8px;
+    border-radius: 20px;
+    margin-left: 6px;
+  }
   .prompt-text {
     margin: 0;
     font-family: inherit;
@@ -207,7 +214,6 @@
     border-radius: 8px;
     border: 1px solid var(--border);
   }
-  .ph { color: var(--ford-accent); font-weight: 700; }
   .copy-btn {
     appearance: none;
     border: 1px solid var(--ford-blue);
@@ -236,6 +242,7 @@
     font-size: 14.5px;
   }
   .tip strong { color: var(--brand-text); }
+  .tip em { color: var(--ford-accent); font-style: normal; font-weight: 600; }
   .tip code {
     background: var(--surface);
     color: var(--text);
@@ -316,6 +323,14 @@
     border-radius: 20px;
     margin-bottom: 8px;
   }
+  .toolbar {
+    display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 6px;
+  }
+  .tool-chip {
+    font-size: 12px; font-weight: 600; color: var(--ford-mid);
+    background: var(--surface); border: 1px solid var(--ford-light);
+    border-radius: 20px; padding: 3px 11px;
+  }
 
   footer {
     max-width: 1080px;
@@ -353,8 +368,8 @@
 <nav class="tabbar" aria-label="Sections">
   <div class="tabbar-inner">
     <button class="tab-btn active" data-tab="intro">Introduction</button>
-    <button class="tab-btn" data-tab="ea">EA Prompts</button>
     <button class="tab-btn" data-tab="cos">COS Prompts</button>
+    <button class="tab-btn" data-tab="ea">EA Prompts</button>
     <button class="tab-btn" data-tab="agents">Agents 101</button>
   </div>
 </nav>
@@ -365,13 +380,13 @@
   <section class="panel active" id="intro">
     <span class="pill">Welcome</span>
     <h2 class="section-title">Getting more done with Microsoft 365 Copilot</h2>
-    <p class="lede">Welcome! This page is your take-home companion for today's session. Everything we demo live is here for you to copy, try, and reuse at your own desk. No notes to take — just click <strong>Copy</strong> on any prompt and paste it into Microsoft 365 Copilot.</p>
+    <p class="lede">Welcome! This page is your take-home companion for today's session. Everything we demo live is here for you to copy, try, and reuse at your own desk. No notes to take — just click <strong>Copy</strong> on any prompt and paste it into Copilot.</p>
 
     <h3 class="group"><span class="step-num">1</span> What is Microsoft 365 Copilot?</h3>
-    <p class="scene" style="margin-left:0; font-style:normal;">Microsoft 365 Copilot is your AI assistant woven into the apps you already use — Outlook, Teams, Word, Excel, PowerPoint, and Copilot Chat. It works over <em>your</em> emails, meetings, files, and calendar (securely, inside your Microsoft 365 tenant) so the help you get is grounded in your real work, not generic answers.</p>
+    <p class="scene" style="margin-left:0; font-style:normal;">Microsoft 365 Copilot is your AI assistant woven into the apps you already use — Outlook, Word, PowerPoint, Excel, and Teams — plus the Microsoft 365 Copilot chat that searches across all of them. It works over <em>your</em> emails, meetings, and files (securely, inside your Microsoft 365 tenant), so the help you get is grounded in your real work, not generic answers.</p>
 
     <div class="card-grid">
-      <div class="info-card"><h4>Day in the Life</h4><p>High-impact prompts that mirror what your role actually does each day — triage, prep, drafting, and follow-up.</p></div>
+      <div class="info-card"><h4>Day in the Life</h4><p>High-impact prompts that span your everyday apps — Outlook, Word, PowerPoint, Excel, and Teams.</p></div>
       <div class="info-card"><h4>Agents</h4><p>Reusable, purpose-built assistants you create yourself in Agent Builder — no code required.</p></div>
       <div class="info-card"><h4>Workshop</h4><p>You'll build your own agent live, using a starter prompt you can adapt to your team.</p></div>
       <div class="info-card"><h4>Take it home</h4><p>This site is yours. Bookmark it, share it with your peers, and keep experimenting.</p></div>
@@ -390,129 +405,143 @@
     </table>
 
     <h3 class="group"><span class="step-num">3</span> How to get the most from any prompt</h3>
-    <div class="tip"><strong>Use the / key to link your content.</strong> Anywhere a prompt shows something in <code>[brackets]</code>, that's where you insert a live link: type <code>/</code> in Copilot and pick the executive's mailbox, a file, a meeting, or a person. Replacing the placeholder with a real link is what lets Copilot pull the right inbox, calendar, or document — and keeps it clear which mailbox the answer came from.</div>
-    <div class="tip"><strong>Be specific about the output.</strong> Tell Copilot the format you want ("a table", "under 150 words", "three bullet points"), the tone ("warm", "executive-ready"), and the audience. The more direction you give, the better the result.</div>
-    <div class="tip"><strong>It's a conversation, not a vending machine.</strong> If the first draft isn't quite right, just say "make it shorter," "more formal," or "add the budget numbers." Copilot remembers the context of your chat.</div>
+    <div class="tip"><strong>We'll move across your apps.</strong> Each prompt is tagged with where to run it — Outlook, Word, PowerPoint, Excel, Teams, or the Microsoft 365 Copilot chat — so you see Copilot everywhere you work. In Word, PowerPoint, and Excel, just look for the <strong>Copilot</strong> button to begin. A couple of EA prompts use the executive's shared mailbox (those are marked). When a prompt shows something in <code>[brackets]</code>, that's a file or meeting to attach — type <code>/</code> to link it.</div>
+    <div class="tip"><strong>Be specific about the output.</strong> Tell Copilot the format you want ("a table", "four slides", "under 150 words"), the tone ("warm", "executive-ready"), and the audience. The more direction you give, the better the result.</div>
+    <div class="tip"><strong>It's a conversation, not a vending machine.</strong> If the first draft isn't quite right, just say "make it shorter," "more formal," or "add a slide on next steps." Copilot remembers the context of your chat.</div>
     <div class="tip"><strong>Keep it professional and confidential.</strong> Treat Copilot like a trusted assistant. Use real context, but follow your normal judgment on sensitive information.</div>
 
-    <p style="margin-top:24px;">When you're ready, head to the <strong>EA Prompts</strong> or <strong>COS Prompts</strong> tab to follow along with the demo.</p>
+    <p style="margin-top:24px;">When you're ready, head to the <strong>COS Prompts</strong> or <strong>EA Prompts</strong> tab to follow along with the demo.</p>
   </section>
 
   <!-- ================= EA PROMPTS ================= -->
   <section class="panel" id="ea">
     <span class="pill">Executive Admins</span>
-    <h2 class="section-title">A day supporting a Ford leader</h2>
-    <p class="lede">These prompts follow one morning-to-evening arc for an executive admin — starting the day, getting your leader ready, drafting on their behalf, coordinating logistics, and closing the loop. Run them in order to see how Copilot supports the whole flow, or copy any one on its own.</p>
+    <h2 class="section-title">A day across your apps</h2>
+    <p class="lede">These prompts follow an executive admin through the day — and they move across the apps you already use: the Microsoft 365 Copilot chat, Outlook, Word, PowerPoint, Excel, and Teams. Each is tagged with where to run it. Two use the executive's shared mailbox (marked); the rest are your own.</p>
 
-    <div class="tip"><strong>Before you run these:</strong> anything in <code>[brackets]</code> is where you drop in a live link — in Copilot, type <code>/</code> and choose the executive's mailbox, a file, or a meeting. Because each prompt points at one mailbox, the results stay clear about whose inbox or calendar they came from. For the inbox and calendar prompts you'll need delegate or shared access to the executive's mailbox.</div>
+    <div class="tip"><strong>Where to run these.</strong> Each prompt shows the app it belongs in. The two tagged <span style="color:#b06f10; font-weight:700;">Exec mailbox</span> open the executive's shared mailbox in Outlook; everything else runs on your own data and apps. In Word, PowerPoint, and Excel, click the <strong>Copilot</strong> button and paste the prompt right in.</div>
 
-    <h3 class="group"><span class="step-num">1</span> Start the day: triage the inbox</h3>
-    <p class="scene">It's 8 AM. Before your leader logs on, you want to know what landed over the weekend and what needs attention.</p>
+    <h3 class="group"><span class="step-num">1</span> Start the day with a morning brief</h3>
+    <p class="scene">Coffee in hand, you ask Copilot to pull your world together — what happened overnight, what's on today, and what needs you.</p>
     <div class="prompt-card">
-      <div class="prompt-head"><span class="prompt-label">Outlook / Copilot Chat</span><button class="copy-btn">Copy</button></div>
-      <pre class="prompt-text">Review the inbox for [the executive] and summarize the emails that arrived since Friday, focusing on anything high importance or time-sensitive. Sort them into three groups: needs the executive's attention, needs my follow-up, and FYI only. For each email, give me a one-sentence summary, who it's from, and what it's asking for.</pre>
+      <div class="prompt-head"><span class="prompt-label">Microsoft 365 Copilot</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Give me a morning brief for today. Summarize the emails and Teams messages I've received since yesterday afternoon that need my attention, list my meetings today with their times and who's attending, and call out anything that's time-sensitive or that I'm waiting on from someone else.</pre>
     </div>
 
-    <h3 class="group"><span class="step-num">2</span> Look ahead: this week's calendar</h3>
-    <p class="scene">Now you scan the week so there are no surprises — gaps, conflicts, or meetings missing an agenda.</p>
-    <div class="prompt-card">
-      <div class="prompt-head"><span class="prompt-label">Copilot Chat</span><button class="copy-btn">Copy</button></div>
-      <pre class="prompt-text">Review the calendar for [the executive] for this week and summarize each meeting, including its purpose, the key attendees, and whether it already has an agenda. Flag any double-bookings, any meetings without a clear purpose, and any days that are fully back-to-back with no break.</pre>
+    <h3 class="group"><span class="step-num">2</span> Turn the exec's inbox into a briefing</h3>
+    <p class="scene">Your leader is back-to-back all morning. In seconds, you turn their whole inbox into a prioritized briefing.</p>
+    <div class="prompt-card exec">
+      <div class="prompt-head"><span class="prompt-label">Outlook <span class="exec-tag">Exec mailbox</span></span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Summarize the emails in this mailbox from the last several days and group them into three lists: needs the executive's decision, things I can handle, and FYI only. For each email, give me a one-line summary, who it's from, and the specific ask or deadline. Put the most urgent items first.</pre>
     </div>
 
-    <h3 class="group"><span class="step-num">3</span> Get them ready: build a meeting brief</h3>
-    <p class="scene">There's an important meeting today. You put together a one-page brief so your leader walks in prepared.</p>
-    <div class="prompt-card">
-      <div class="prompt-head"><span class="prompt-label">Copilot Chat / Word</span><button class="copy-btn">Copy</button></div>
-      <pre class="prompt-text">Create a briefing document for [the executive]'s meeting today with the product launch team. Include the attendees and their roles, a short summary of the most recent email exchanges between the executive and this group, the open action items from their last meeting with this group, and three smart questions the executive could ask.</pre>
+    <h3 class="group"><span class="step-num">3</span> Draft a reply in seconds</h3>
+    <p class="scene">The launch team needs a decision. You open their email and Copilot writes the reply for you to review and send.</p>
+    <div class="prompt-card exec">
+      <div class="prompt-head"><span class="prompt-label">Outlook <span class="exec-tag">Exec mailbox</span></span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Draft a reply to this email that approves the June 30 Atlas launch date, thanks the team for the strong work, and asks them to send the final run-of-show by Wednesday. Keep it warm, professional, and under 120 words.</pre>
     </div>
 
-    <h3 class="group"><span class="step-num">4</span> Draft on their behalf</h3>
-    <p class="scene">Your leader asks you to send a note to the leadership team. You draft it in their voice.</p>
+    <h3 class="group"><span class="step-num">4</span> Prep for your next meeting</h3>
+    <p class="scene">You've got a meeting coming up on your own calendar. In one prompt, Copilot gets you ready — who's coming, what it's about, and the latest context.</p>
     <div class="prompt-card">
-      <div class="prompt-head"><span class="prompt-label">Outlook / Copilot Chat</span><button class="copy-btn">Copy</button></div>
-      <pre class="prompt-text">Draft an email on behalf of [the executive] to their leadership team. It should thank everyone for their work closing out the quarter, ask each person to send their top three priorities for next quarter by end of day Friday, and let them know these will be reviewed together at the next staff meeting. Keep it warm, appreciative, and under 150 words.</pre>
+      <div class="prompt-head"><span class="prompt-label">Microsoft 365 Copilot</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Help me prepare for my next meeting on my calendar. Tell me what it's about, who's attending and their roles, summarize the most recent emails and files related to it, and suggest three things I should be ready to discuss.</pre>
     </div>
 
-    <h3 class="group"><span class="step-num">5</span> Coordinate the travel</h3>
-    <p class="scene">There's an upcoming site visit. You pull the details together into a clean itinerary and catch anything still unconfirmed.</p>
+    <h3 class="group"><span class="step-num">5</span> Create a reusable template</h3>
+    <p class="scene">You take notes in every meeting. Instead of rebuilding the format each time, you have Copilot make a clean template once.</p>
     <div class="prompt-card">
-      <div class="prompt-head"><span class="prompt-label">Copilot Chat</span><button class="copy-btn">Copy</button></div>
-      <pre class="prompt-text">Search the inbox for [the executive] for the most recent email about their next business trip, and pull out the key details: dates, flight times, hotel, and any onsite agenda. Then turn it into a clean, organized itinerary I can share with the executive, and list anything that still looks missing or unconfirmed.</pre>
+      <div class="prompt-head"><span class="prompt-label">Word</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Create a reusable meeting notes template I can use for any meeting. Include sections for the meeting title, date, attendees, agenda, key discussion points, decisions made, and action items with an owner and due date for each. Keep it clean and professional with clear headings.</pre>
     </div>
 
-    <h3 class="group"><span class="step-num">6</span> Close the loop: action items</h3>
-    <p class="scene">Yesterday's staff meeting produced commitments. You make sure nothing slips.</p>
+    <h3 class="group"><span class="step-num">6</span> Build a quick deck</h3>
+    <p class="scene">A new executive is joining. You need a short, polished intro deck — and you'd rather not start from a blank slide.</p>
     <div class="prompt-card">
-      <div class="prompt-head"><span class="prompt-label">Copilot Chat / Teams</span><button class="copy-btn">Copy</button></div>
-      <pre class="prompt-text">From [link the staff meeting notes], create a table of every action item with its owner and due date. Then draft a short, friendly follow-up message I can send to each owner reminding them what they committed to and when it's due.</pre>
+      <div class="prompt-head"><span class="prompt-label">PowerPoint</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Create a short, clean presentation introducing our team to a new executive: a title slide, a slide on who we are, a slide on what we're focused on this quarter, and a closing slide with how to reach us.</pre>
     </div>
 
-    <h3 class="group"><span class="step-num">7</span> Wrap up: tee up tomorrow</h3>
-    <p class="scene">End of day. You set yourself up so tomorrow starts on the front foot.</p>
+    <h3 class="group"><span class="step-num">7</span> Spin up a simple tracker</h3>
+    <p class="scene">Expense season again. Instead of hunting for a template, you let Copilot build one.</p>
     <div class="prompt-card">
-      <div class="prompt-head"><span class="prompt-label">Copilot Chat</span><button class="copy-btn">Copy</button></div>
-      <pre class="prompt-text">Build me a prioritized to-do list for tomorrow using my own open emails, [the executive]'s calendar for tomorrow, and any action items still outstanding from this week. Put the most time-sensitive items at the top, and flag anything I'm waiting on from someone else.</pre>
+      <div class="prompt-head"><span class="prompt-label">Excel</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Create a simple travel-expense tracker with columns for date, category, description, and amount, and add a row at the bottom that totals the amounts. Make the header row bold.</pre>
     </div>
 
-    <div class="tip"><strong>Your turn:</strong> swap in your own details — a real meeting name, a real project — and watch how much more specific the results become. The <strong>Agents 101</strong> tab shows how to turn these into a one-click assistant.</div>
+    <h3 class="group"><span class="step-num">8</span> Catch up on a busy chat</h3>
+    <p class="scene">You stepped away for a few hours. Rather than scroll, you ask Copilot what you missed.</p>
+    <div class="prompt-card">
+      <div class="prompt-head"><span class="prompt-label">Teams</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Catch me up on what I missed in this chat over the last day. Pull out the key updates, any questions directed at me, and anything that needs a response, and list them so I can act quickly.</pre>
+    </div>
+
+    <h3 class="group"><span class="step-num">9</span> Find the answer across everything</h3>
+    <p class="scene">Your leader asks "where are we on Atlas?" You get a grounded status in one prompt — no digging.</p>
+    <div class="prompt-card">
+      <div class="prompt-head"><span class="prompt-label">Microsoft 365 Copilot</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Find the most recent files and emails about the Atlas launch and give me a short status update I can share with my executive — what's on track, what's still pending, and any open decisions.</pre>
+    </div>
+
+    <div class="tip"><strong>Your turn:</strong> point these at a real email, a real topic, or a real deck and watch how much time they save. The <strong>Agents 101</strong> tab shows how to turn your favorites into a one-click assistant.</div>
   </section>
 
   <!-- ================= COS PROMPTS ================= -->
   <section class="panel" id="cos">
     <span class="pill">Chiefs of Staff</span>
     <h2 class="section-title">Running the leadership operating rhythm</h2>
-    <p class="lede">These prompts walk through a chief of staff's week — synthesizing what matters, running the leadership meeting, turning information into decisions, and communicating outward. Run them in sequence to see the full operating rhythm, or grab any single prompt.</p>
+    <p class="lede">These prompts walk through a chief of staff's week — synthesizing what matters, running the leadership meeting, turning information into decisions, and communicating outward — and they span the tools you use to do it: the Microsoft 365 Copilot chat, Word, Excel, PowerPoint, Teams, and Outlook.</p>
 
-    <div class="tip"><strong>Before you run these:</strong> anything in <code>[brackets]</code> is where you drop in a live link — type <code>/</code> in Copilot and pick a file, a meeting, or a person. A couple of prompts mention <code>[the executive]</code> — that's simply who the summary or message is for. The rest work over your own email, Teams, and files.</div>
+    <div class="tip"><strong>Where to run these.</strong> Each prompt is tagged with its app — the Copilot chat for pulling across sources, Word and PowerPoint for documents and decks, Excel for the data, Teams for the recap, and Outlook for the message. Where you see something in <code>[brackets]</code>, attach that file or meeting by typing <code>/</code>.</div>
 
     <h3 class="group"><span class="step-num">1</span> Monday: synthesize the week</h3>
-    <p class="scene">You start the week by cutting through the noise — what moved, what's at risk, what needs a decision.</p>
+    <p class="scene">You start the week by cutting through the noise — across email, Teams, and files — to see what moved and what needs a decision.</p>
     <div class="prompt-card">
-      <div class="prompt-head"><span class="prompt-label">Copilot Chat</span><button class="copy-btn">Copy</button></div>
-      <pre class="prompt-text">Summarize the most important updates, decisions, and risks from my email and Teams messages over the past week, organized around our top strategic priorities. For anything flagged as a risk or a blocker, note who owns it and what decision or help is needed.</pre>
+      <div class="prompt-head"><span class="prompt-label">Microsoft 365 Copilot</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Summarize the most important updates, decisions, and risks across my email, Teams messages, and recent files from the past week, organized around our top strategic priorities. For each risk or blocker, note who owns it and what decision or help is needed to move it forward.</pre>
     </div>
 
     <h3 class="group"><span class="step-num">2</span> Prep the leadership staff meeting</h3>
     <p class="scene">The weekly leadership meeting is the heartbeat of the team. You build a tight, decision-focused agenda.</p>
     <div class="prompt-card">
-      <div class="prompt-head"><span class="prompt-label">Copilot Chat</span><button class="copy-btn">Copy</button></div>
-      <pre class="prompt-text">Help me build the agenda for this week's leadership team staff meeting. Start from the open action items in [link last week's meeting notes], add the top two or three decisions we need to make this week, and propose time allocations so everything fits in 60 minutes. Format it as a clean agenda I can paste straight into the meeting invite.</pre>
+      <div class="prompt-head"><span class="prompt-label">Word</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Using the action items in [link last week's meeting notes], draft the agenda for this week's leadership staff meeting. Add the top two or three decisions we need to make this week, propose time allocations so everything fits in 60 minutes, and format it as a clean agenda I can paste into the invite.</pre>
     </div>
 
-    <h3 class="group"><span class="step-num">3</span> Synthesize the business review</h3>
-    <p class="scene">A stack of QBR material just landed. Your leader needs the signal, not the noise — on one page.</p>
-    <div class="prompt-card">
-      <div class="prompt-head"><span class="prompt-label">Copilot Chat / Word</span><button class="copy-btn">Copy</button></div>
-      <pre class="prompt-text">Review the quarterly business review materials in [link the QBR file] and write a one-page executive summary for [the executive]. Organize it into what's on track, what's at risk, and the three things that need leadership attention this quarter. Keep it tight and decision-oriented, and call out any numbers that moved significantly versus last quarter.</pre>
-    </div>
-
-    <h3 class="group"><span class="step-num">4</span> Read the status data</h3>
+    <h3 class="group"><span class="step-num">3</span> Read the status data</h3>
     <p class="scene">You track a portfolio of initiatives. You want the health picture and anything that just slipped.</p>
     <div class="prompt-card">
-      <div class="prompt-head"><span class="prompt-label">Excel / Copilot Chat</span><button class="copy-btn">Copy</button></div>
-      <pre class="prompt-text">Analyze the initiative status data in [link the spreadsheet] and tell me how many initiatives are green, yellow, and red, broken down by department. Highlight any initiative that slipped from green or yellow to red since last month, and give me a two-sentence summary I can share with leadership.</pre>
+      <div class="prompt-head"><span class="prompt-label">Excel</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Analyze this initiative tracker and tell me how many initiatives are green, yellow, and red, broken down by department. Highlight any initiative that slipped to red since last month, and give me a two-sentence summary I can share with leadership.</pre>
     </div>
 
-    <h3 class="group"><span class="step-num">5</span> Draft the executive message</h3>
-    <p class="scene">Priorities for the half are set. Your leader needs to communicate them clearly and credibly.</p>
+    <h3 class="group"><span class="step-num">4</span> Build the leadership update deck</h3>
+    <p class="scene">Leadership wants the picture on a few slides, not in a wall of text. You let Copilot draft it.</p>
     <div class="prompt-card">
-      <div class="prompt-head"><span class="prompt-label">Copilot Chat / Outlook</span><button class="copy-btn">Copy</button></div>
-      <pre class="prompt-text">Draft a message from [the executive] to the broader organization announcing our operating priorities for the second half of the year. It should connect the priorities to our strategy and sound confident and motivating without being corporate, at around 300 words. Give me one version for email and a shorter version I can adapt for a Teams post.</pre>
+      <div class="prompt-head"><span class="prompt-label">PowerPoint</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Create a short leadership update presentation: a title slide, a slide on progress against our top three priorities, a slide on the key risks and the decisions we need, and a closing slide with next steps.</pre>
     </div>
 
-    <h3 class="group"><span class="step-num">6</span> Build a decision brief</h3>
-    <p class="scene">A decision is coming up. You frame it cleanly so leadership can decide fast and well.</p>
+    <h3 class="group"><span class="step-num">5</span> Synthesize the business review</h3>
+    <p class="scene">A stack of QBR material just landed. Your leader needs the signal, not the noise — on one page.</p>
     <div class="prompt-card">
-      <div class="prompt-head"><span class="prompt-label">Copilot Chat / Word</span><button class="copy-btn">Copy</button></div>
-      <pre class="prompt-text">Create a one-page decision brief for the proposal to consolidate our two project-reporting tools into one. Include the background and why this is coming up now, the options we're considering, the key pros and cons of each, the cost and change-management implications, and a clear recommendation with the reasoning behind it.</pre>
+      <div class="prompt-head"><span class="prompt-label">Word</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Review the quarterly business review materials in [link the QBR file] and write a one-page executive summary: what's on track, what's at risk, and the three things that need leadership attention this quarter. Call out any numbers that moved significantly versus last quarter.</pre>
     </div>
 
-    <h3 class="group"><span class="step-num">7</span> Recap and follow through</h3>
+    <h3 class="group"><span class="step-num">6</span> Recap the meeting</h3>
     <p class="scene">The meeting's over. You send a crisp recap so decisions and owners are unambiguous.</p>
     <div class="prompt-card">
-      <div class="prompt-head"><span class="prompt-label">Copilot Chat / Teams</span><button class="copy-btn">Copy</button></div>
-      <pre class="prompt-text">Using the transcript from [link today's leadership team meeting], write a concise recap I can send to the team. Lead with the decisions that were made, then list the action items organized by owner with due dates, and close with anything we explicitly parked for a future discussion.</pre>
+      <div class="prompt-head"><span class="prompt-label">Teams</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Recap this meeting for me: lead with the decisions that were made, then list the action items by owner with due dates, and close with anything we explicitly parked for a future discussion. Keep it concise enough to send to the team.</pre>
+    </div>
+
+    <h3 class="group"><span class="step-num">7</span> Communicate outward</h3>
+    <p class="scene">Priorities for the half are set. Your leader needs to communicate them clearly and credibly.</p>
+    <div class="prompt-card">
+      <div class="prompt-head"><span class="prompt-label">Outlook</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Draft a message to the broader organization announcing our operating priorities for the second half of the year. Connect them to our strategy and keep it confident and motivating without sounding corporate, at around 300 words. Give me an email version and a shorter version I can adapt for a Teams post.</pre>
     </div>
 
     <div class="tip"><strong>Your turn:</strong> point these at your real priorities, your real QBR, your real meeting. Then see the <strong>Agents 101</strong> tab to package this whole rhythm into a reusable Chief of Staff agent.</div>
