@@ -368,6 +368,7 @@
 <nav class="tabbar" aria-label="Sections">
   <div class="tabbar-inner">
     <button class="tab-btn active" data-tab="intro">Introduction</button>
+    <button class="tab-btn" data-tab="prompting">Prompting</button>
     <button class="tab-btn" data-tab="cos">COS Prompts</button>
     <button class="tab-btn" data-tab="ea">EA Prompts</button>
     <button class="tab-btn" data-tab="agents">Agents 101</button>
@@ -404,11 +405,9 @@
       </tbody>
     </table>
 
-    <h3 class="group"><span class="step-num">3</span> How to get the most from any prompt</h3>
+    <h3 class="group"><span class="step-num">3</span> How to read these prompts</h3>
     <div class="tip"><strong>We'll move across your apps.</strong> Each prompt is tagged with where to run it — Outlook, Word, PowerPoint, Excel, Teams, or the Microsoft 365 Copilot chat — so you see Copilot everywhere you work. In Word, PowerPoint, and Excel, just look for the <strong>Copilot</strong> button to begin. A couple of EA prompts use the executive's shared mailbox (those are marked). When a prompt shows something in <code>[brackets]</code>, that's a file or meeting to attach — type <code>/</code> to link it.</div>
-    <div class="tip"><strong>Be specific about the output.</strong> Tell Copilot the format you want ("a table", "four slides", "under 150 words"), the tone ("warm", "executive-ready"), and the audience. The more direction you give, the better the result.</div>
-    <div class="tip"><strong>It's a conversation, not a vending machine.</strong> If the first draft isn't quite right, just say "make it shorter," "more formal," or "add a slide on next steps." Copilot remembers the context of your chat.</div>
-    <div class="tip"><strong>Keep it professional and confidential.</strong> Treat Copilot like a trusted assistant. Use real context, but follow your normal judgment on sensitive information.</div>
+    <p style="margin-top:14px;">New to writing prompts? The <strong>Prompting</strong> tab covers how to get great results every time.</p>
 
     <p style="margin-top:24px;">When you're ready, head to the <strong>COS Prompts</strong> or <strong>EA Prompts</strong> tab to follow along with the demo.</p>
   </section>
@@ -485,6 +484,43 @@
     </div>
 
     <div class="tip"><strong>Your turn:</strong> point these at a real email, a real topic, or a real deck and watch how much time they save. The <strong>Agents 101</strong> tab shows how to turn your favorites into a one-click assistant.</div>
+  </section>
+
+  <!-- ================= PROMPTING ================= -->
+  <section class="panel" id="prompting">
+    <span class="pill">Prompting</span>
+    <h2 class="section-title">How to get the most out of Copilot</h2>
+    <p class="lede">A great prompt can have up to four parts — <strong>Goal, Context, Source,</strong> and <strong>Expectations</strong>. Only the goal is required; add the others to sharpen the result. The more direction you give, the more useful the answer.</p>
+
+    <h3 class="group"><span class="step-num">1</span> The four building blocks</h3>
+    <div class="card-grid">
+      <div class="info-card"><h4>Goal &middot; required</h4><p>What you want Copilot to do. Start with a verb — <em>"Summarize…", "Draft…", "Create a table…"</em></p></div>
+      <div class="info-card"><h4>Context</h4><p>Why you're asking and who it's for — <em>"…for my executive ahead of the Business Operations Review."</em></p></div>
+      <div class="info-card"><h4>Source</h4><p>What Copilot should use. Point it at emails, a meeting, or a file by typing <strong>/</strong> — <em>"…based on the Atlas launch emails this week."</em></p></div>
+      <div class="info-card"><h4>Expectations</h4><p>The shape of the answer — format, length, tone — <em>"…in five bullets, friendly tone, under 150 words."</em></p></div>
+    </div>
+
+    <h3 class="group"><span class="step-num">2</span> Put it together</h3>
+    <p class="scene">Start with just a goal, then layer in the other parts to go from a generic answer to exactly what you need.</p>
+    <p style="margin:0 0 12px;"><strong style="color:var(--muted-text);">Just a goal &rarr;</strong> <span style="font-style:italic; color:var(--muted-text);">"Summarize my emails."</span></p>
+    <div class="prompt-card">
+      <div class="prompt-head"><span class="prompt-label">Goal + Context + Source + Expectations</span><button class="copy-btn">Copy</button></div>
+      <pre class="prompt-text">Summarize the emails from the Atlas launch team over the past week so I can brief my executive ahead of tomorrow's Business Operations Review. Group them into what needs a decision and what's just an update, and keep it to five short bullet points.</pre>
+    </div>
+    <div class="tip"><strong>Why it works:</strong> it names the <strong>goal</strong> (summarize), the <strong>source</strong> (the Atlas launch emails this week), the <strong>context</strong> (a brief for the executive before the Business Operations Review), and the <strong>expectations</strong> (grouped, five bullets). Every prompt on the COS and EA tabs is built the same way.</div>
+
+    <h3 class="group"><span class="step-num">3</span> A few habits that make prompts better</h3>
+    <div class="tip"><strong>Be specific about the output.</strong> Ask for a table, a number of bullets, a word count, or a tone. Vague in, vague out.</div>
+    <div class="tip"><strong>Give it your content.</strong> Type <code>/</code> to point Copilot at a specific email, meeting, file, or person, so it works from your real information instead of guessing.</div>
+    <div class="tip"><strong>Iterate — it's a conversation.</strong> The first answer is a starting point. Follow up with "make it shorter," "more formal," or "add a section on risks." Copilot remembers the thread.</div>
+    <div class="tip"><strong>Always review.</strong> Copilot gives you a fast first draft, not the final word. Check names, numbers, and dates before you send or share.</div>
+    <div class="tip"><strong>Keep it professional and confidential.</strong> Treat Copilot like a trusted assistant — use real context, but follow your normal judgment on sensitive information.</div>
+
+    <h3 class="group"><span class="step-num">4</span> Learn more</h3>
+    <p style="margin:0 0 6px;">Microsoft's quick guide to writing prompts, with examples:</p>
+    <a class="doc-link" href="https://support.microsoft.com/en-us/microsoft-365-copilot/get-started-writing-prompts-in-microsoft-365-copilot" target="_blank" rel="noopener noreferrer">📘 Get started writing prompts in Microsoft 365 Copilot — Microsoft Support</a>
+    <p style="font-size:13px; color:var(--muted-text); margin:8px 0 0;">support.microsoft.com/en-us/microsoft-365-copilot/get-started-writing-prompts-in-microsoft-365-copilot</p>
+    <div class="tip" style="margin-top:18px;"><strong>Want more ready-made prompts?</strong> Browse the <strong>Copilot Prompt Gallery</strong> built into Microsoft 365 Copilot — look for "View prompts" in the Copilot chat box — for hundreds of examples organized by role and task.</div>
   </section>
 
   <!-- ================= COS PROMPTS ================= -->
